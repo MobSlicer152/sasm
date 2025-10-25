@@ -1,3 +1,5 @@
+# this file handles encoding instructions
+
 from enum import Enum
 from typing import Final
 
@@ -38,11 +40,21 @@ class OperandEncoding(Enum):
     MI = "mi",  # po r/m, imm
 
 
-class OperandType(Enum):
-    # register
+class RegisterType(Enum):
     R8 = "r8",
     R16 = "r16",
     R32 = "r32",
+    SREG = "sreg",
+    EEE = "eee"
+
+
+class OperandType(Enum):
+    # register
+    R8 = RegisterType.R8,
+    R16 = RegisterType.R16,
+    R32 = RegisterType.R32,
+    SREG = RegisterType.SREG,
+    EEE = RegisterType.EEE,
 
     # memory
     M8 = "m8",
@@ -70,19 +82,24 @@ class InstructionEncoding:
         self.operands: Final = operands
 
 
+# represents one register. different sizes of the same register are considered distinct for simplicity.
 class Register:
-    def __init__(self, reg: int, r8: str, r16: str, r32: str, sreg: str):
+    def __init__(self, name: str, type: RegisterType, reg: int):
+        self.name: Final = name
+        self.type: Final = type
         self.reg: Final = reg & 0x7  # 3 bits
-        self.r8: Final = r8
-        self.r16: Final = r16
-        self.r32: Final = r32
-        self.sreg: Final = sreg
 
 
+# represents an operand.
 class Operand:
-    def __init__(self, reg: Register, type: OperandType):
+    def __init__(self, reg: Register, type: OperandType, disp: int | None = None):
         self.reg: Final = reg
         self.type: Final = type
+        self.disp: Final = disp
+        if self.disp is not None:
+            self.addr: Final = True
+
+    # TODO: scaled index support?
 
 
 class Instruction:

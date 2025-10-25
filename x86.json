@@ -1,0 +1,62 @@
+{
+  "registers": {
+    "al": { "type": "r8", "reg": 0 },
+    "cl": { "type": "r8", "reg": 1 },
+    "dl": { "type": "r8", "reg": 2 },
+    "bl": { "type": "r8", "reg": 3 },
+
+    "ah": { "type": "r8", "reg": 4 },
+    "ch": { "type": "r8", "reg": 5 },
+    "dh": { "type": "r8", "reg": 6 },
+    "bh": { "type": "r8", "reg": 7 },
+
+    "ax": { "type": "r16", "reg": 0 },
+    "cx": { "type": "r16", "reg": 1 },
+    "dx": { "type": "r16", "reg": 2 },
+    "bx": { "type": "r16", "reg": 3 },
+    "sp": { "type": "r16", "reg": 4 },
+    "bp": { "type": "r16", "reg": 5 },
+    "si": { "type": "r16", "reg": 6 },
+    "di": { "type": "r16", "reg": 7 },
+
+    "eax": { "type": "r32", "reg": 0 },
+    "ecx": { "type": "r32", "reg": 1 },
+    "edx": { "type": "r32", "reg": 2 },
+    "ebx": { "type": "r32", "reg": 3 },
+    "esp": { "type": "r32", "reg": 4 },
+    "ebp": { "type": "r32", "reg": 5 },
+    "esi": { "type": "r32", "reg": 6 },
+    "edi": { "type": "r32", "reg": 7 },
+
+    "es": { "type": "sreg", "reg": 0 },
+    "cs": { "type": "sreg", "reg": 1 },
+    "ss": { "type": "sreg", "reg": 2 },
+    "ds": { "type": "sreg", "reg": 3 },
+    "fs": { "type": "sreg", "reg": 4 },
+    "gs": { "type": "sreg", "reg": 5 },
+
+    "cr0": { "type": "eee", "reg": 0 },
+    "cr2": { "type": "eee", "reg": 2 },
+    "cr3": { "type": "eee", "reg": 3 },
+    "cr4": { "type": "eee", "reg": 4 },
+
+    "dr0": { "type": "eee", "reg": 0 },
+    "dr1": { "type": "eee", "reg": 1 },
+    "dr2": { "type": "eee", "reg": 2 },
+    "dr3": { "type": "eee", "reg": 3 },
+    "dr4": { "type": "eee", "reg": 4 },
+    "dr5": { "type": "eee", "reg": 5 },
+    "dr6": { "type": "eee", "reg": 6 },
+    "dr7": { "type": "eee", "reg": 7 }
+  },
+  "instructions": [
+    {
+      "mnemonic": "add",
+      "opcode": 0x00,
+      "operands": [
+        ["r8", "m8"],
+        ["r8"]
+      ]
+    }
+  ]
+}
