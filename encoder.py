@@ -1,6 +1,6 @@
 # this file handles encoding instructions
 
-from enum import Enum
+from enum import StrEnum
 from typing import Final
 
 
@@ -32,15 +32,20 @@ class Opcode:
             code = (code << 8) | (self.prefix & 0xFF)
         return code.to_bytes(length=length, byteorder="little")
 
+    def __repr__(self):
+        secondary = None if self.secondary is None else f"0x{self.secondary:02X}"
+        prefix = None if self.prefix is None else f"0x{self.prefix:02X}"
+        return f"Opcode {{ primary: 0x{self.primary:02X}, secondary: {secondary}, prefix: {prefix}, has_0f: {self.has_0f}, encoded: {self.encode()} }}"
 
-class OperandEncoding(Enum):
+
+class OperandEncoding(StrEnum):
     ADD = "add",  # po + r r/m
     RM = "rm",  # po r/m, reg
     MR = "mr",  # po reg, r/m
     MI = "mi",  # po r/m, imm
 
 
-class RegisterType(Enum):
+class RegisterType(StrEnum):
     R8 = "r8",
     R16 = "r16",
     R32 = "r32",
@@ -48,7 +53,7 @@ class RegisterType(Enum):
     EEE = "eee"
 
 
-class OperandType(Enum):
+class OperandType(StrEnum):
     # register
     R8 = RegisterType.R8,
     R16 = RegisterType.R16,
@@ -74,12 +79,15 @@ class InstructionEncoding:
         mnemonic: str,
         opcode: Opcode,
         operand_encoding: OperandEncoding,
-        operands: list[OperandType],
+        operands: list[list[OperandType]],
     ):
         self.mnemonic: Final = mnemonic
         self.opcode: Final = opcode
         self.operand_encoding: Final = operand_encoding
         self.operands: Final = operands
+
+    def __repr__(self):
+        return f"InstructionEncoding {{ mnemonic: {self.mnemonic}, opcode: {self.opcode}, operand_encoding: {self.operand_encoding}, operands: {self.operands} }}"
 
 
 # represents one register. different sizes of the same register are considered distinct for simplicity.
@@ -88,6 +96,9 @@ class Register:
         self.name: Final = name
         self.type: Final = type
         self.reg: Final = reg & 0x7  # 3 bits
+
+    def __repr__(self):
+        return f"Register {{ name: {self.name}, type: {self.type}, reg: {self.reg} }}"
 
 
 # represents an operand.

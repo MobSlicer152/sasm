@@ -52,7 +52,10 @@
   "instructions": [
     {
       "mnemonic": "add",
-      "opcode": 0x00,
+      "opcode": {
+        "primary": "0x00"
+      },
+      "operand_encoding": "rm",
       "operands": [
         ["r8", "m8"],
         ["r8"]
