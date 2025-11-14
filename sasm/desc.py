@@ -2,7 +2,7 @@
 
 import json
 
-from encoder import Opcode, InstructionEncoding, OperandType, OperandEncoding, Register, RegisterType
+from .encoder import Opcode, InstructionEncoding, OperandType, OperandEncoding, Register, RegisterType
 
 class Desc:
     def __init__(self, path: str):
